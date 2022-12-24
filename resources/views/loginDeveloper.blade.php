@@ -29,11 +29,14 @@ h3{
                     <p>User and Password are Wrong</p>
                 </div>
            @endif
+           @if(session('loginError'))
+                    <p class="alert alert-danger">User and Password are Wrong</p>
+           @endif
            <form action="" method="post">
               {{ csrf_field() }}
               <input type="text" placeholder="Email" name="email">
-              <input type="Your password" placeholder="Password" name="password">
-              <input type="submit" value="Create An Account"/>
+              <input type="password" placeholder="Password" name="password">
+              <input type="submit" value="Login"/>
             </form>
        </div>
 </div>

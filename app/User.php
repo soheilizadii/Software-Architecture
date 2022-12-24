@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use App\Model\Topic;
+
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -31,4 +33,8 @@ class User extends Authenticatable
     public function setPasswordAttribute($value){
         $this->attributes['password'] = bcrypt($value);
     }
+
+    public function topics(){
+        return $this->belongsToMany(Topic::class,'topic_user','user_id','topic_id');
+      }
 }

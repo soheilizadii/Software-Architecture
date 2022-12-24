@@ -29,7 +29,7 @@
                {{ csrf_field() }}
               <input type="text" placeholder="First Name & Last Name" name="name">
               <input type="text" placeholder="Email" name="email">
-              <input type="Your password" placeholder="Password" name="password">
+              <input type="password" placeholder="Password" name="password">
               <input name="role" type="hidden" value="D">
               <input type="submit" value="Create An Account"/>
             </form>

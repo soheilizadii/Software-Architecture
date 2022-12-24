@@ -7,6 +7,11 @@
             @php 
                $constant="Illuminate\Support\Facades\Auth"
             @endphp
+            @if(session('ChangesSuccessfully'))
+               <p class="alert alert-success">
+                  Change Successfuly.
+               </p>
+            @endif
             <label for="name">Full Name</label>
             <input type="text" id="name" name="name" value="{{ $constant::user()->name  }}">
             <label for="linkedin">Linkedin URL</label>

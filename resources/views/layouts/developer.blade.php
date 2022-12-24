@@ -1,3 +1,6 @@
+@if(!\Illuminate\Support\Facades\Auth::check() ) 
+  {{ redirect()->route('index') }}
+@endif
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,11 +16,11 @@
             height: 60px;
             background: #39424e;
            }
-           .top-header .container >img{
+           .top-header .container a >img{
                width:60px;
                float:left;
            }
-           .top-header .container > .logo{
+           .top-header .container a > .logo{
             margin-top: 12px;
             float: left;
             color: white;
@@ -91,7 +94,7 @@
 <body style="background:#f3f7f7">
     <div class="top-header">
         <div class="container">
-            <img src="/files/images/logoWhite.png" alt=""><span class='logo'>HackerRank</span>
+            <a href="{{route('index')}}"><img src="/files/images/logoWhite.png" alt=""><span class='logo'>HackerRank</span></a>
             <div class="dropdown">
                 <i class="far fa-user"></i>
                 <span class='title'>{{ Illuminate\Support\Facades\Auth::user()->name }}</span>
@@ -100,9 +103,16 @@
                 <div class="dropdown-body">
                     <span class="hackos">HackoS:101</span>
                     <ul>
-                        <li><a href="{{ route('developerDashboard') }}"><i class="fas fa-clipboard-list"></i>Dashboard</a></li>
-                        <li><a href="{{ route('profileDeveloper') }}"><i class="far fa-address-card"></i>Profile</a></li>
-                        <li><a href="{{ route('logoutDeveloper') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                        @if(Illuminate\Support\Facades\Auth::user()->role == 'D' )
+                            <li><a href="{{ route('developerDashboard') }}"><i class="fas fa-clipboard-list"></i>Dashboard</a></li>
+                            <li><a href="{{ route('profileDeveloper') }}"><i class="far fa-address-card"></i>Profile</a></li>
+                            <li><a href="{{ route('logoutDeveloper') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                        @endif
+                        @if(Illuminate\Support\Facades\Auth::user()->role == 'C' )
+                            <li><a href="{{ route('companyDashboard') }}"><i class="fas fa-clipboard-list"></i>Dashboard</a></li>
+                            <li><a href="{{ route('profileCompany') }}"><i class="far fa-address-card"></i>Profile</a></li>
+                            <li><a href="{{ route('logoutCompany') }}"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+                        @endif
                     </ul>
                 </div>
             </div>

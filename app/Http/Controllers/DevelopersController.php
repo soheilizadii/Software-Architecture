@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Model\Topic;
+use App\Model\Topicuser;
+
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +29,7 @@ class DevelopersController extends Controller
         
         if($user instanceof User )
         {
-            return redirect()->route('login');
+            return redirect()->route('loginDeveloper')->with('registerSuccess',true);
         }
         else{
             return redirect()->back()->with('registerError',true);
@@ -54,8 +58,11 @@ class DevelopersController extends Controller
     }
 
     public function dashboard(){
-               
-         return view('developers.dashboard');
+        //  $topicUser=Topicuser::where('user_id',Auth::user()->id)->get();
+        //  dd($topic_id);
+         $userId=Auth::user();
+         $topicUser=$userId->topics;
+         return view('developers.dashboard',compact('topicUser'));
     }
     public function logout(){
         Auth::logout();
@@ -75,7 +82,43 @@ class DevelopersController extends Controller
         }
     }
 
-    public function topic(){
-        return view('developers.topic');
+    public function topic($category){
+         $topics = DB::table('topics')->where('category',$category)->get();
+         return view('developers.topic',compact('topics'));
+    }
+    public function action(){
+        echo "dffddffddf";
+    }
+    public function challange($id){
+       $challange=Topic::find($id); 
+       return view('developers.challange',compact('challange'));
+    }
+    public function dochallange($topic_id){
+        $this->validate(request(),[
+         'option1'=>'required',
+         'option2'=>'required',
+         'option3'=>'required',
+        ]);
+        $bb=0;
+        if( request()->input('option1') == 'option3-1' ){
+           $bb+=1;
+        };
+        if(request()->input('option2') == 'option4-2'){
+          $bb+=1; 
+        };
+        if(request()->input('option3') == 'option1-3'){
+          $bb+=1; 
+        };
+            //  $score=($bb/3)*100;
+                 $user_id=Auth::user()->id;
+                 $topic=Topic::find($topic_id);
+                $topic->users()->attach($user_id);
+            //  $topicUser=Topicuser::create(['topic_id'=>$topic_id , 'user_id' => $user_id , 'score' => $score]);
+            //  if($topicUser instanceof Topicuser){
+                   return redirect()->route('developerDashboard');
+            //  }
+            //  else{
+            //      return redirect()->back();
+            //  }
     }
 }

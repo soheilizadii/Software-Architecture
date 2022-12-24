@@ -69,58 +69,33 @@ box-shadow: 0px 0px 7px #b5b5b5;
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 } 
+
 </style>
 <div class="mainTopic clearfix">
      <div class="left">
-          <div class="item clearfix">
-              <div style='floaT:left;'>
-                  <h3 class="title"> Java Stdin and Stdout I</h3>
-                  <p><span class='difficulty'>Easy</span><span>Java(basic)</span> </p>
-              </div>
-             <a href="" class='link'>Solve Challange</a>
-          </div>
-          <div class="item clearfix">
-              <div style='floaT:left;'>
-                  <h3 class="title"> Java If-Else</h3>
-                  <p><span class='difficulty'>Easy</span><span>Java(basic)</span> </p>
-              </div>
-             <a href="" class='link'>Solve Challange</a>
-          </div>
-          <div class="item clearfix">
-              <div style='floaT:left;'>
-                  <h3 class="title"> Java Stdin and Stdout I</h3>
-                  <p><span class='difficulty'>Easy</span><span>Java(basic)</span> </p>
-              </div>
-             <a href="" class='link'>Solve Challange</a>
-          </div>
-          <div class="item clearfix">
-              <div style='floaT:left;'>
-                  <h3 class="title"> Java Stdin and Stdout I</h3>
-                  <p><span class='difficulty'>Easy</span><span>Java(basic)</span> </p>
-              </div>
-             <a href="" class='link'>Solve Challange</a>
-          </div>
-          <div class="item clearfix">
-              <div style='floaT:left;'>
-                  <h3 class="title"> Java Stdin and Stdout I</h3>
-                  <p><span class='difficulty'>Easy</span><span>Java(basic)</span> </p>
-              </div>
-             <a href="" class='link'>Solve Challange</a>
-          </div>
+          @foreach($topics as $topic)
+            <div class="item clearfix">
+                <div style='floaT:left;'>
+                    <h3 class="title">{{$topic->title}}</h3>
+                    <p><span class='difficulty'>{{$topic->difficulty}} </span><span> {{$topic->category}}({{$topic->skill}})</span> </p>
+                </div>
+                <a href="{{ route('challange',$topic->id) }}" class='link'>Solve Challange</a>
+             </div>
+          @endforeach
          
      </div>
      <div class="right">
            <div class="skills">
                <p class="title">Skills</p>
-                <label class="container1">Java (Basic)
+                <label class="container1">{{$topic->category}} (Basic)
                     <input name="basic" type="checkbox" check ed="checked">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container1">Java (Intermediate)
+                <label class="container1">{{$topic->category}} (Intermediate)
                     <input name="intermediate" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
-                <label class="container1">Java (Advanced)
+                <label class="container1">{{$topic->category}} (Advanced)
                     <input  name="advanced" type="checkbox">
                     <span class="checkmark"></span>
                 </label>
@@ -140,6 +115,36 @@ box-shadow: 0px 0px 7px #b5b5b5;
                     <span class="checkmark"></span>
                 </label>
            </div>
+           <input type="submit" value="search" class="btn btn-primary" name="search"/>
      </div>
 </div>
+<script>
+ function search(){
+          var basic='';
+          var intermediate='';
+          var advanced='';
+          if( $('input[name=basic]').is(':checked') ){basic=1;}else{basic=0;}
+          if( $('input[name=intermediate]').is(':checked') ){intermediate=1;}else{intermediate=0;}
+          if( $('input[name=advanced]').is(':checked') ){advanced=1;}else{advanced=0;}
+          
+
+          $.ajax({
+           url:'action',
+           type:'POST',
+           dataType: 'json',
+           data:{basic:basic,intermediate:intermediate,advanced:advanced},
+           
+           })
+          .done(function(msg){
+            // $('.search .left .item-wrapper').html('');
+            // $('.search .left .item-wrapper').append(msg);
+            alert(msg);
+          })
+ }
+ $('input[name="search"]').click(function(){
+    alert();
+     search();
+ })
+ 
+</script>
 @endsection

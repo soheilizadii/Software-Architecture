@@ -23,13 +23,13 @@
            <a href="{{ route('loginCompany') }}" class="login">Login</a>
        </div>
        <div class="content">
-           @include('partials.errors')
-           
            <form action="" method="post">
                {{ csrf_field() }}
+               @include('.partials.errors')
               <input type="text" placeholder="Name Company" name="name">
               <input type="text" placeholder="Email" name="email">
-              <input type="Your password" placeholder="Password" name="password">
+              <input type="password" placeholder="Password" name="password">
+              <input name="role" type="hidden" value="C">
               <input type="submit" value="Create An Account"/>
             </form>
        </div>

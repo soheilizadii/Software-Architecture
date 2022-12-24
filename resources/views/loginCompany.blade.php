@@ -24,12 +24,19 @@
        </div>
        <div class="content">
            @include('partials.errors')
-           
+           @if(session('registerSuccess'))
+           <p class="alert alert-success">
+               Welcome! You are Registered 
+           </p>
+           @endif
+           @if(session('loginError'))
+                    <p class="alert alert-danger">User and Password are Wrong</p>
+           @endif
            <form action="" method="post">
                {{ csrf_field() }}
               <input type="text" placeholder="Email" name="email">
-              <input type="Your password" placeholder="Password" name="password">
-              <input type="submit" value="Create An Account"/>
+              <input type="password" placeholder="Password" name="password">
+              <input type="submit" value="Login"/>
             </form>
        </div>
 </div>

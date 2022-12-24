@@ -18,14 +18,14 @@
          <div class="logo">
             <a href="{{ route('index') }}"><img src="/files/images/logo.png" alt=""></a>
          </div>
-         <div class="navbar">
+         <!-- <div class="navbar">
             <ul>
                 <li>Products</li>
                 <li>Solutions</li>
                 <li>Resources</li>
                 <li>Pricing</li>
             </ul>
-         </div>
+         </div> -->
          <div class="loginRegister ">
              <a class="login" href="{{ route('login') }}" >Login</a>
              <a class="register" href="{{ route('register') }}" >Register</a>
